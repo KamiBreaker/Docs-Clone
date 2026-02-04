@@ -24,7 +24,8 @@ export default function TextEditor() {
 
   // Socket connection
   useEffect(() => {
-    const s = io("http://localhost:3001")
+    const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001"
+    const s = io(SERVER_URL)
     setSocket(s)
 
     return () => {
