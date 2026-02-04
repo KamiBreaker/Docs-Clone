@@ -11,14 +11,18 @@ mongoose.connect(mongooseUri)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("MongoDB connection error:", err))
 
-const io = new Server(3001, {
+const PORT = process.env.PORT || 3001
+const io = new Server(PORT, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      process.env.CLIENT_URL
+    ].filter(Boolean),
     methods: ["GET", "POST"],
   },
 })
 
-console.log("Server running on 3001")
+console.log(`Server running on ${PORT}`)
 
 const defaultValue = ""
 
